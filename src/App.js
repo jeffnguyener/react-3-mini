@@ -93,6 +93,10 @@ class App extends Component {
 
     // axios (POST)
     // setState with response -> vehiclesToDisplay
+    axios.post(`${this.state.baseUrl}/vehicles`, newCar).then((response) => {
+      this.setState({ vehiclesToDisplay: response.data.vehicles })
+      toast.success('It worked')
+    }).catch((err) => toast.error('It broke'));
   }
 
   addBuyer() {
