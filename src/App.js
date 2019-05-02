@@ -45,12 +45,13 @@ class App extends Component {
     axios.get(`${this.state.baseUrl}/buyers`).then((response) => {
       this.setState({ buyersToDisplay: response.data })
       toast.success('It worked')
-    }).catch((error) => toast.error('It broke'));
+    }).catch((err) => toast.error('It broke'));
   }
 
   sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
+
   }
 
   filterByMake() {
@@ -70,8 +71,17 @@ class App extends Component {
   updatePrice(priceChange, id) {
     // axios (PUT)
     // setState with response -> vehiclesToDisplay
-  }
-
+    axios
+    .put(`${this.state.baseUrl}/vehicles/${id}/${priceChange}`)
+    .then(response => {
+      this.setState({ vehiclesToDisplay: response.data.vehicles });
+      toast.success('Success');
+    })
+    .catch(err => {
+      console.log(err);
+      toast.error('It Failed');
+    });
+}
   addCar() {
     let newCar = {
       make: this.make.value,
