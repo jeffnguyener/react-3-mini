@@ -13,6 +13,8 @@ class App extends Component {
     this.state = {
       vehiclesToDisplay: [],
       buyersToDisplay: []
+      baseUrl: 'joes-autos.herokuapp.com/api'
+
     };
 
     this.getVehicles = this.getVehicles.bind(this);
@@ -31,6 +33,10 @@ class App extends Component {
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(`${this.state.baseUrl}/vehicles`).then((response) => {
+      this.setState({ vehiclesToDisplay: response.data })
+      toast.success('It worked')
+    }).catch((error) => toast.error('It broke'));
   }
 
   getPotentialBuyers() {
