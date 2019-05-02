@@ -51,7 +51,14 @@ class App extends Component {
   sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
-
+    axios.delete(`${this.state.baseUrl}/vehicles/${id}`)
+      .then(res => {
+        this.setState({ vehiclesToDisplay: res.data.vehicles });
+        toast.success('Success');
+      })
+      .catch(err => {
+        toast.error('Failed');
+      });
   }
 
   filterByMake() {
@@ -108,6 +115,10 @@ class App extends Component {
 
     //axios (POST)
     // setState with response -> buyersToDisplay
+    axios.post(`${this.state.baseUrl}/buyers`, newBuyer).then((response) => {
+      this.setState({ buyersToDisplay: response.data })
+      toast.success('It worked')
+    }).catch((err) => toast.error('It broke'));
   }
 
   deleteBuyer(id) {
